@@ -34,12 +34,14 @@ public class TileMovement : MonoBehaviour
         }
 
         transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
-        if(GameEventManager.Instance.AutoPlay)
+    }
+    private void FixedUpdate()
+    {
+        if (GameEventManager.Instance.AutoPlay)
         {
             AutoPlay();
         }
     }
-
     private bool IsVisible()
     {
         Vector3 vp = cam.WorldToViewportPoint(endPivot.position);
@@ -49,7 +51,7 @@ public class TileMovement : MonoBehaviour
     {
         var checkPivot = GetComponent<TileClick>()?.CheckPivot ?? GetComponent<TileHold>()?.CheckPivot;
 
-        float randomRand = UnityEngine.Random.Range(0f, 0.3f);
+        float randomRand = UnityEngine.Random.Range(0f, 0.5f);
         if (!IsChecked && Math.Abs(checkPivot.position.y - GameEventManager.Instance.LineTimingY) <= randomRand)
         {
             if (TryGetComponent<TileClick>(out var click)) click.TestAutoClick();

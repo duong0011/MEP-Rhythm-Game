@@ -9,20 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 64c4af5446aa3214eb2dced5010355f2, type: 3}
   m_Name: ScoreConfig
   m_EditorClassIdentifier: MyGame::ScoreConfig
-  PerfectScore: 5
-  GoodScore: 4
-  OkScore: 3
-  StarThresholds:
-  - 0.3
-  - 0.6
-  - 1
-  TimeDecorInteract: 0.5
-  MinAlphaColorDecor: 0.4
-  TimeToScaleUp: 0.3
-  TimeToScaleDown: 0.2
-  ScoreTextScaleDuration: 0.1
-  ScoreTextResetDuration: 0.2
-  ScoreResultHideDelay: 0.7

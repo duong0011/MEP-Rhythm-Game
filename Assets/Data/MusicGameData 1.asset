@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: MusicGameData
-  m_EditorClassIdentifier: MyGame::MusicGameData
+  m_Script: {fileID: 11500000, guid: 5715aa30ca04aa74b8532829e606cf66, type: 3}
+  m_Name: MusicGameData 1
+  m_EditorClassIdentifier: 
   musicGameInfos:
   - musicName: MockingBird
     artistName: Eminem
