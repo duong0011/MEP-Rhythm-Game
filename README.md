@@ -1,0 +1,7 @@
+1. Để thuật tiện cho việc xem xét đánh giá project em đã build project ra file APK anh/chị chỉ cần tải phải APK cài đặt là chạy được 
+2. Game e thiết kết các tile được xuất hiện theo nhịp của chỉ số BPM của bài hát và tốc độ của tile tùy thuộc vào thanh ngang để người chơi timing, khi người chơi timing vào thanh này đối với các tile ngắn là điểm giữa tile và các tile dài là điểm hình tròn các điểm này càng gần thanh timing điểm sẽ càng cao và mỗi lần người chơi thực hiện việc tương tác với các tile thì thanh timing sẽ di chuyển lên hoặc xuống cho tile tiếp theo, nếu người chơi đạt được nhiều lần good hoặc perfect liên tiếp sẽ được combo và điểm sẽ nhân theo hệ số combo đó, khi người chơi tương tác với các tile ở khoảng cách quá xa sẽ bị miss nhưng không tính thua người chơi chỉ thua khi có một tile đi qua điểm cuối và chưa được tương tác.
+3.Một số tài nguyên em sử dụng bên ngoài bao gồm Dotween, ParticalSystem TrailLinerenderer, post-processing
+cùng với các sprite khác theo đường link sau:
+https://penzilla.itch.io/basic-gui-bundle/download/eyJpZCI6MTk2NjU1MiwiZXhwaXJlcyI6MTc1MDM1MjgwNX0%3d.KfZFnDuFB5MyeDvI9ahX5Fb8OGQ%3d
+https://pzuh.itch.io/free-game-gui/download/eyJpZCI6ODY1NDkyLCJleHBpcmVzIjoxNzUwMzU3NTQ0fQ%3d%3d.Ea6jSvzEhJ%2fb25%2f8eHEvlhQm2sA%3d
+https://www.freepik.com/free-vector/realistic-sparkling-star-collection_15591196.htm#fromView=keyword&page=1&position=1&uuid=b157fcb5-efab-42f3-957b-8b00407d3f29&query=Star+Sprite
