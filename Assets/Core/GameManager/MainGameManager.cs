@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,17 +13,21 @@ public class MainGameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private AudioClip audioClip;
 
-
+ 
     private void Start()
     {
+        spawnTileManager.gameObject.SetActive(true);
         OnGameStart();
         spawnTileManager.OnGameEnd += OnGameEnd;
     }
-
+ 
     public void OnGameStart()
     {
         StopAllCoroutines();
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxSelected);
+        if(AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxSelected);
+        }
         int bpm = 120; // Default BPM
         if (GameManager.Instance != null)
         {
@@ -56,8 +61,10 @@ public class MainGameManager : MonoBehaviour
         spawnTileManager.gameObject.SetActive(true);
         float timeAudio = audioClip.length;
         StartCoroutine(MusicTimer(timeAudio));
-        AudioManager.Instance.PlayMusic(audioClip, false);
-
+        if(AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayMusic(audioClip, false);
+        }
     }
     IEnumerator MusicTimer(float timeAudio)
     {

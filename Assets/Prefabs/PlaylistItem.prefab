@@ -69,8 +69,8 @@ MonoBehaviour:
 
     ArtistName: Dlela'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c087df07fbb341646910abe9dfe0f0ab, type: 2}
-  m_sharedMaterial: {fileID: 93680370525262499, guid: c087df07fbb341646910abe9dfe0f0ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 14cbea504fc96234c82a2e5b61b404e6, type: 2}
+  m_sharedMaterial: {fileID: -6221364004968147597, guid: 14cbea504fc96234c82a2e5b61b404e6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9622642, g: 0.9326142, b: 0.73985404, a: 1}
+  m_Color: {r: 0.48584908, g: 1, b: 0.5624336, a: 0.43137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

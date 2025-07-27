@@ -16,7 +16,7 @@ public class GameEventManager : Singleton<GameEventManager>
     private readonly List<TileData> tileList = new();
     private Camera mainCamera;
 
-    public int TotalScoreToWinGame { private set; get; }
+    public int TotalScoreToWinGame { private set; get; } = int.MaxValue; // Default to max value, will be set in SetUpTile
     public float LineTimingY => lineTiming != null ? lineTiming.transform.position.y : 0f;
     public IReadOnlyList<TileData> TileList => tileList.AsReadOnly();
     public int BPM { private set; get;}

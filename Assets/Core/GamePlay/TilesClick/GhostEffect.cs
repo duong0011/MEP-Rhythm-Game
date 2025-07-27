@@ -4,6 +4,7 @@ using System;
 
 public class GhostEffect : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer border;
     public float fadeDuration = 0.5f;
     Vector3 originalPosition;
     Vector3 originalRotation;
@@ -20,14 +21,16 @@ public class GhostEffect : MonoBehaviour
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.DOFade(0f, 0.5f)
           .SetEase(Ease.Linear);
+        border.DOFade(0f, 0.5f)
+         .SetEase(Ease.Linear);
     }
 
     void OnEnable()
     {
         OnReset();
         var sr = GetComponent<SpriteRenderer>();
-        sr.DOFade(1f, 0f); 
-
+        sr.DOFade(1f, 0f);
+        border.DOFade(1f, 0f);
     }
     private void OnReset()
     {
