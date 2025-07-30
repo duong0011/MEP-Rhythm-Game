@@ -21,7 +21,7 @@ public class EndGameUIManager : MonoBehaviour
         perfectTimes.text = $"Get {perfectTime} times Perfect";
         goodTimes.text = $"Get {goodTime} times Good";
         OKTimes.text = $"Get {OKTime} times OK";
-        MissTimes.text = $"Get {missTime} times Perfect";
+        MissTimes.text = $"Get {missTime} times Miss";
         Score.text = score.ToString();
         foreach (Image image in stares)
         {

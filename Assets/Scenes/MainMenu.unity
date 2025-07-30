@@ -6324,7 +6324,7 @@ MonoBehaviour:
   playlistContainer: {fileID: 1694330643}
   playList: {fileID: 1247380626}
   playButton: {fileID: 1542574413}
-  playListMenu: {fileID: 0}
+  playListMenu: {fileID: 1440903604}
   settingMenu: {fileID: 1566070414}
   FadeDuration: 0.5
 --- !u!114 &809713213
