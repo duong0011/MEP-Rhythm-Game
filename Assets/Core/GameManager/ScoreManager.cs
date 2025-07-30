@@ -17,6 +17,7 @@ public class ScoreManager : Singleton<ScoreManager>
     [SerializeField] private Image[] stars;
     [SerializeField] private TextMeshProUGUI comboText;
     [SerializeField] private TextMeshProUGUI totalScoreText;
+    [SerializeField] private EndGameUIManager endGameUIManager;
 
     private int _comboAmount = -1;
     private int ComboAmount
@@ -32,6 +33,11 @@ public class ScoreManager : Singleton<ScoreManager>
     private bool isInteractDecorRunning = false;
     private readonly Color starColor = Color.yellow;
     private readonly Color defaultStarColor = Color.white;
+    int perfectTimes = 0;
+    int goodTimes = 0;
+    int OKTimes = 0;
+    int missTimes = 0;
+    int starAmount = 0;
 
     protected override void Awake()
     {
@@ -53,19 +59,23 @@ public class ScoreManager : Singleton<ScoreManager>
                 score += config.PerfectScore * Mathf.Max(1, ComboAmount);
                 ComboAmount++;
                 TriggerScoreEffect(0);
+                perfectTimes++;
                 break;
             case ScoreResult.Good:
                 score += config.GoodScore * Mathf.Max(1, ComboAmount);
                 ComboAmount++;
+                goodTimes++;
                 TriggerScoreEffect(1);
                 break;
             case ScoreResult.Ok:
                 score += config.OkScore;
                 ComboAmount = -1;
+                OKTimes++;
                 TriggerScoreEffect(2);
                 break;
             case ScoreResult.Miss:
                 ComboAmount = -1;
+                missTimes++;
                 TriggerScoreEffect(3);
                 break;
             default:
@@ -157,6 +167,8 @@ public class ScoreManager : Singleton<ScoreManager>
             if (stars[i] != null && progressBar.fillAmount >= config.StarThresholds[i])
             {
                 stars[i].color = starColor;
+                starAmount = i + 1;
+                
             }
         }
     }
@@ -196,7 +208,11 @@ public class ScoreManager : Singleton<ScoreManager>
         // Reset score and combo
         score = 0;
         ComboAmount = -1;
-
+        perfectTimes = 0;
+        goodTimes = 0;
+        OKTimes = 0;
+        missTimes = 0;
+        starAmount = 0;
         // Reset progress bar
         if (progressBar != null)
         {
@@ -247,5 +263,10 @@ public class ScoreManager : Singleton<ScoreManager>
 
         // Update score display
         UpdateScoreDisplay();
+    }
+    public void ShowScoreGameDetail()
+    {
+        endGameUIManager.ShowResult(perfectTimes, goodTimes, OKTimes, missTimes, score, starAmount);
+        Debug.Log(starAmount);
     }
 }

@@ -118,13 +118,13 @@ public class TileHold : MonoBehaviour
             trailRenderer.emitting = true;
             _particleSystem.gameObject.SetActive(true);
             var audioManager = AudioManager.Instance;
-            var clip = audioManager.holdTileMusic;
+            var clip = audioManager.holdTileSFX;
             audioManager.PlaySFX(clip);
         }
         else
         {
             var audioManager = AudioManager.Instance;
-            var clip = audioManager.missMusic;
+            var clip = audioManager.missSFX;
             audioManager.PlaySFX(clip);
             missText.SetActive(true);
         }

@@ -10,10 +10,11 @@ public class MusicVolumSlider : MonoBehaviour
     {
         slider = GetComponent<Slider>();
         slider.onValueChanged.AddListener(OnValueChanged);
-        slider.value = AudioManager.Instance.Volume;
+        slider.value = AudioManager.Instance.MusicVolume;
     }
     private void OnValueChanged(float value)
     {
-        AudioManager.Instance.Volume = value;
+        AudioManager.Instance.MusicVolume = value;
     }
+    
 }

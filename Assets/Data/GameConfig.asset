@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44cbf2f5a245b234cbedde72607508e1, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  TileSpeedModifier: 0.8
+  TileSpeedModifier: 0.7
   FirstTileViewportY: 0.2
   ExtraTiles: 20
   MinFirstTiles: 8

@@ -15,13 +15,36 @@ MonoBehaviour:
   musicGameInfos:
   - musicName: MockingBird
     artistName: Eminem
+    coverImage: {fileID: 21300000, guid: 13922651b4b52b946a3b3a856d0c5e11, type: 3}
     audioClip: {fileID: 8300000, guid: 2d536c0ba817b7c49a6e4e9484cbe728, type: 3}
     bpm: 86
   - musicName: 'Despacito '
     artistName: Luis Fonsi -  ft. Daddy Yankee
+    coverImage: {fileID: 21300000, guid: f20b691323fb58341bd5ed5482c7a7c0, type: 3}
     audioClip: {fileID: 8300000, guid: 4a4f333f4217e264ca4ce2e821240cfa, type: 3}
     bpm: 89
   - musicName: Hello
     artistName: Adele
+    coverImage: {fileID: 21300000, guid: a9ba9331485e3344eb44978844634947, type: 3}
     audioClip: {fileID: 8300000, guid: 5be8ceab474e487438b544e65467af60, type: 3}
     bpm: 89
+  - musicName: "T\xE1i Sinh (Remix Style Huy PT) "
+    artistName: " T\xF9ng D\u01B0\u01A1ng x meChill "
+    coverImage: {fileID: 21300000, guid: c2a6aa6b55f1fc04ea8b4a419a1b54d8, type: 3}
+    audioClip: {fileID: 8300000, guid: f796e7502e852a04491889a4cc7f68a8, type: 3}
+    bpm: 89
+  - musicName: Dark Horse
+    artistName: Katy Perry ft. Juicy J
+    coverImage: {fileID: 21300000, guid: 60cc047e5da607e4e8afad441310a67d, type: 3}
+    audioClip: {fileID: 8300000, guid: fb1ab0fe6611a0f42beea9f8c459e608, type: 3}
+    bpm: 88
+  - musicName: "T\xFAy \xC2m"
+    artistName: Xesi x Masew x Nhatnguyen
+    coverImage: {fileID: 21300000, guid: 95ee99f2ebc0a7846b913b4ad8de2697, type: 3}
+    audioClip: {fileID: 8300000, guid: c90fdd24565a3d84285acadad7762045, type: 3}
+    bpm: 149
+  - musicName: "\u0110\u1EA7u \u0110\u01B0\u1EDDng X\xF3 Ch\u1EE3"
+    artistName: "Obito ft. L\u0103ng LD"
+    coverImage: {fileID: 21300000, guid: 3d8a7be1456f2774284745c332391545, type: 3}
+    audioClip: {fileID: 8300000, guid: b1328e899beca274aa8022e0e3e0b83b, type: 3}
+    bpm: 157

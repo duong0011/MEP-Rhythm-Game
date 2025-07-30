@@ -7,6 +7,8 @@ public class SpawnTileManager : MonoBehaviour
     [SerializeField] private PoolTiles holdPool;
 
     public event Action OnGameEnd;
+    bool isGamePlaying = false;
+    
     private int BPM => GameEventManager.Instance.BPM;
     private Camera cam;
     private float[] stripX = { 0.125f, 0.375f, 0.625f, 0.875f };
@@ -17,6 +19,7 @@ public class SpawnTileManager : MonoBehaviour
 
     void Update()
     {
+        if (!isGamePlaying) return;
         if (Time.time >= nextSpawnTime)
             SpawnTile();
     }
@@ -93,7 +96,14 @@ public class SpawnTileManager : MonoBehaviour
         clickPool.ReturnActivedItemToPool(tile);
         holdPool.ReturnActivedItemToPool(tile);
     }
-
+    public void PlayGame(bool isPlayGame)
+    {
+        isGamePlaying = isPlayGame;
+        if(!isGamePlaying)
+        {
+            ResetSpawn();
+        }
+    }
     public void ResetSpawn()
     {
         currentTileIdex = 0;

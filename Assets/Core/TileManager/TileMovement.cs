@@ -52,7 +52,7 @@ public class TileMovement : MonoBehaviour
         var checkPivot = GetComponent<TileClick>()?.CheckPivot ?? GetComponent<TileHold>()?.CheckPivot;
 
         float randomRand = UnityEngine.Random.Range(0f, 0.5f);
-        if (!IsChecked && Math.Abs(checkPivot.position.y - GameEventManager.Instance.LineTimingY) <= randomRand)
+        if (!IsChecked && (Math.Abs(checkPivot.position.y - GameEventManager.Instance.LineTimingY) <= randomRand  || checkPivot.position.y < GameEventManager.Instance.LineTimingY))
         {
             if (TryGetComponent<TileClick>(out var click)) click.TestAutoClick();
             if (TryGetComponent<TileHold>(out var hold)) hold.TestAutoClick(checkPivot.position);

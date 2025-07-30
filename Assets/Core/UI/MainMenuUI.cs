@@ -5,9 +5,11 @@ using DG.Tweening;
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] public GameObject PlaylistItemPrefab;
-    [SerializeField] public RectTransform playlisContainer;
+    [SerializeField] public RectTransform playlistContainer;
     [SerializeField] public GameObject playList;
     [SerializeField] public GameObject playButton;
+    [SerializeField] public GameObject playListMenu;
+    [SerializeField] public GameObject settingMenu;
     public float FadeDuration = 0.5f;
 
 
@@ -21,13 +23,13 @@ public class MainMenuUI : MonoBehaviour
 
         foreach (var musicInfo in GameManager.Instance.musicGameData.musicGameInfos)
         {
-            if (PlaylistItemPrefab == null || playlisContainer == null) continue;
+            if (PlaylistItemPrefab == null || playlistContainer == null) continue;
 
-            var item = Instantiate(PlaylistItemPrefab, playlisContainer);
+            var item = Instantiate(PlaylistItemPrefab, playlistContainer);
             var playListItemUI = item.GetComponent<PlayListItemUI>();
             if (playListItemUI != null)
             {
-                playListItemUI.SetData(musicInfo.musicName, musicInfo.artistName);
+                playListItemUI.SetData(musicInfo);
                 playListItemUI.Index = GameManager.Instance.musicGameData.musicGameInfos.IndexOf(musicInfo);
             }
         }
@@ -80,5 +82,15 @@ public class MainMenuUI : MonoBehaviour
         }
 
         yield return null;
+    }
+    public void ShowPlayListGame()
+    {
+        playListMenu.SetActive(true);
+        settingMenu.SetActive(false);
+    }
+    public void ShowSettingu()
+    {
+        playListMenu.SetActive(false);
+        settingMenu.SetActive(true);
     }
 }

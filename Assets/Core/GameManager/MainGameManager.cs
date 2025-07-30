@@ -1,95 +1,134 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public class MainGameManager : MonoBehaviour
 {
+    [Header("Game References")]
     [SerializeField] private SpawnTileManager spawnTileManager;
-    [SerializeField] private int timeToStartGame = 3;
     [SerializeField] private GameObject startGameUI;
     [SerializeField] private GameObject endGameUI;
     [SerializeField] private TextMeshProUGUI timeText;
+
+    [Header("Game Config")]
+    [SerializeField] private int timeToStartGame = 3;
     [SerializeField] private AudioClip audioClip;
 
- 
     private void Start()
     {
-        spawnTileManager.gameObject.SetActive(true);
-        OnGameStart();
         spawnTileManager.OnGameEnd += OnGameEnd;
+        OnGameStart();
     }
- 
+
+    private void OnDestroy()
+    {
+        spawnTileManager.OnGameEnd -= OnGameEnd;
+    }
+
     public void OnGameStart()
     {
         StopAllCoroutines();
-        if(AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxSelected);
-        }
-        int bpm = 120; // Default BPM
+
+        PlaySFX(AudioManager.Instance?.selectedSFX);
+
+        int bpm = 120;
         if (GameManager.Instance != null)
         {
             audioClip = GameManager.Instance.currentMusicGameInfo.audioClip;
             bpm = GameManager.Instance.currentMusicGameInfo.bpm;
         }
-        spawnTileManager.gameObject.SetActive(false);
-        endGameUI.SetActive(false);
-        spawnTileManager.ResetSpawn();
-       
+
+        FadeOutUI(endGameUI, 0.5f);
+        spawnTileManager.PlayGame(false);
+
         ScoreManager.Instance.Restart();
-        GameEventManager.Instance.SetBPM(bpm); // Set default BPM, can be changed later
+        GameEventManager.Instance.SetBPM(bpm);
         GameEventManager.Instance.musicClip = audioClip;
         GameEventManager.Instance.SetUpTile();
         GameEventManager.Instance.Restart();
-        StartCoroutine(StartGameColdDown());
 
+        StartCoroutine(StartGameCountdown());
     }
-    IEnumerator StartGameColdDown()
+
+    private IEnumerator StartGameCountdown()
     {
         startGameUI.SetActive(true);
+        FadeInUI(startGameUI, 0.2f);
+
         int timeLeft = timeToStartGame;
         while (timeLeft > 0)
         {
-            AudioManager.Instance.PlaySFX(AudioManager.Instance.SFXCountDown);
+            PlaySFX(AudioManager.Instance?.countdownSFX);
             timeText.text = timeLeft.ToString("F0");
             yield return new WaitForSeconds(1f);
             timeLeft--;
         }
+
+        yield return FadeOutUI(startGameUI, 1f);
         startGameUI.SetActive(false);
-        spawnTileManager.gameObject.SetActive(true);
-        float timeAudio = audioClip.length;
-        StartCoroutine(MusicTimer(timeAudio));
-        if(AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayMusic(audioClip, false);
-        }
+        yield return new WaitForSeconds(0.02f);
+
+        spawnTileManager.PlayGame(true);
+        StartCoroutine(MusicTimer(audioClip.length));
+
+        AudioManager.Instance?.PlayMusic(audioClip, false);
     }
-    IEnumerator MusicTimer(float timeAudio)
+
+    private IEnumerator MusicTimer(float duration)
     {
-        float timeLeft = timeAudio + 2f;
-        while (timeLeft >= 0)
-        {
-            yield return new WaitForSeconds(1f);
-            timeLeft--;
-        }
+        yield return new WaitForSeconds(duration + 2f);
         OnGameEnd();
     }
+
     private void OnGameEnd()
     {
-        var clip = AudioManager.Instance.endGameMusic;
-        AudioManager.Instance.PlayMusic(clip);
-        spawnTileManager.gameObject.SetActive(false);
+        spawnTileManager.PlayGame(false);
+        AudioManager.Instance?.PlayMusic(AudioManager.Instance?.backgroundMusic);
         endGameUI.SetActive(true);
+        FadeInUI(endGameUI, 0.5f);
     }
-    private void OnDestroy()
-    {
-        spawnTileManager.OnGameEnd -= OnGameEnd;
-    }
+
     public void BackToMainMenu()
     {
-        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxSelected);
-        LoadingManager.Instance.LoadNewScene("MainMenu");
+        PlaySFX(AudioManager.Instance?.selectedSFX);
+        LoadingManager.Instance?.LoadNewScene("MainMenu");
     }
+
+    #region Helper Methods
+
+    private void PlaySFX(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            AudioManager.Instance?.PlaySFX(clip);
+        }
+    }
+
+    private Tween FadeInUI(GameObject uiObject, float duration)
+    {
+        CanvasGroup cg = uiObject.GetComponent<CanvasGroup>();
+        if (cg != null)
+        {
+            cg.alpha = 0f;
+            return cg.DOFade(1f, duration);
+        }
+        return null;
+    }
+
+    private Tween FadeOutUI(GameObject uiObject, float duration)
+    {
+        CanvasGroup cg = uiObject.GetComponent<CanvasGroup>();
+        if (cg != null)
+        {
+            return cg.DOFade(0f, duration).OnComplete(() => uiObject.SetActive(false));
+        }
+        else
+        {
+            uiObject.SetActive(false);
+        }
+        return null;
+    }
+
+    #endregion
 }

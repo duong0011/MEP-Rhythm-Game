@@ -56,7 +56,7 @@ public class GameEventManager : Singleton<GameEventManager>
         }
 
         int amountTile = CalculateTileAmount();
-        TotalScoreToWinGame = (amountTile - config.ExtraTiles) * config.PerfectScorePerTile;
+        TotalScoreToWinGame = amountTile  * config.PerfectScorePerTile * 4;
         int amountFirstTile = Random.Range(config.MinFirstTiles, config.MaxFirstTiles + 1);
 
         for (int i = 0; i < amountTile; i++)

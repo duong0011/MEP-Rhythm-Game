@@ -1,59 +1,109 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    [Header("Audio Source")]
+    [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource SFXSource;
-    [Header("Audio Clip")]
-    public AudioClip backGroundMS;
-    public AudioClip hoverMusic;
-    public AudioClip clickTileMusic;
-    public AudioClip holdTileMusic;
-    public AudioClip endGameMusic;
-    public AudioClip sfxSelected;
-    public AudioClip SFXCountDown;
-    public AudioClip missMusic;
+    [SerializeField] private AudioSource sfxSource;
 
-    private float volume = 1f;
-    public float Volume
+    [Header("Audio Clips")]
+    public AudioClip backgroundMusic;
+    public AudioClip clickTileSFX;
+    public AudioClip holdTileSFX;
+    public AudioClip selectedSFX;
+    public AudioClip countdownSFX;
+    public AudioClip missSFX;
+    public AudioClip winGameSFX;
+    public AudioClip loseGameSFX;
+
+    private float musicVolume = 1f;
+    private float sfxBaseVolume = 0.3f;
+    private float sfxVolume = 1f;
+
+    public float MusicVolume
     {
-        get => volume;
+        get => musicVolume;
         set
         {
-            volume = value;
-            SetVolum(volume);
+            musicVolume = value;
+            musicSource.volume = musicVolume;
         }
     }
+
+    public float SFXVolume
+    {
+        get => sfxVolume;
+        set
+        {
+            sfxVolume = value;
+            sfxSource.volume = sfxVolume * sfxBaseVolume;
+        }
+    }
+
     private void Start()
     {
-        musicSource.clip = backGroundMS;
-        musicSource.Play();
+        PreloadAllGameAudio();
+        PlayMusic(backgroundMusic);
     }
-    public void SetVolum(float volume)
-    {
-        musicSource.volume = volume;
-        SFXSource.volume = volume * 0.4f;
-    }
-    public void StopSFX()
-    {
-        SFXSource.Stop();
-    }
+
+    // SFX
     public void PlaySFX(AudioClip clip)
     {
-        SFXSource.PlayOneShot(clip);
-    }
-    public void PlayMusic(AudioClip clip, bool isLooping = true)
-    {
         if (clip == null) return;
-        musicSource.loop = isLooping;
-        musicSource.clip = clip;
-        musicSource.Play();
+        sfxSource.PlayOneShot(clip);
     }
-    public void StopMusic()
+
+    public void StopSFX() => sfxSource.Stop();
+
+    // Music
+    public void PlayMusic(AudioClip clip, bool loop = true, float fadeDuration = 0.5f)
     {
+        if (clip == null || clip == musicSource.clip) return;
+        StartCoroutine(PlayMusicRoutine(clip, loop, fadeDuration));
+    }
+
+    public void StopMusic(float fadeDuration = 0.1f)
+    {
+        musicSource.DOFade(0f, fadeDuration).OnComplete(() => musicSource.Stop());
+    }
+
+    private IEnumerator PlayMusicRoutine(AudioClip clip, bool loop, float fadeDuration)
+    {
+        float originalVolume = musicVolume;
+
+        // Fade out current music
+        yield return musicSource.DOFade(0f, fadeDuration).WaitForCompletion();
         musicSource.Stop();
+
+        // Load clip if needed
+        if (clip.loadState == AudioDataLoadState.Unloaded)
+        {
+            clip.LoadAudioData();
+            while (clip.loadState == AudioDataLoadState.Loading)
+                yield return null;
+        }
+
+        musicSource.clip = clip;
+        musicSource.loop = loop;
+        musicSource.Play();
+
+        // Fade in new music
+        yield return musicSource.DOFade(originalVolume, fadeDuration).WaitForCompletion();
+    }
+
+    // Preload tất cả audio trong danh sách bài hát để tránh giật
+    public void PreloadAllGameAudio()
+    {
+        var musicInfos = GameManager.Instance?.musicGameData?.musicGameInfos;
+        if (musicInfos == null) return;
+
+        foreach (var info in musicInfos)
+        {
+            var clip = info.audioClip;
+            if (clip != null && clip.loadState == AudioDataLoadState.Unloaded)
+                clip.LoadAudioData();
+        }
     }
 }

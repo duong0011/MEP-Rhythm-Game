@@ -69,12 +69,12 @@ public class TileClick : MonoBehaviour
             ghostEffect.Play();
         }
 
-        PlaySFX(AudioManager.Instance?.clickTileMusic);
+        PlaySFX(AudioManager.Instance?.clickTileSFX);
     }
 
     private void ShowMiss()
     {
-        PlaySFX(AudioManager.Instance?.missMusic);
+        PlaySFX(AudioManager.Instance?.missSFX);
         if (missText != null)
         {
             missText.SetActive(true);

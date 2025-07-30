@@ -26,7 +26,7 @@ public class LoadingManager : Singleton<LoadingManager>
             Debug.LogError($"Scene '{sceneName}' is not found in Build Settings!");
             return;
         }
-        var clip = AudioManager.Instance.endGameMusic;
+        var clip = AudioManager.Instance.backgroundMusic;
         AudioManager.Instance.PlayMusic(clip);
         StartCoroutine(LoadSceneWithDelay(sceneName));
     }
@@ -54,7 +54,7 @@ public class LoadingManager : Singleton<LoadingManager>
             {
                 canvasGroup.alpha = 0f;
                 loadingBG.SetActive(true);
-                yield return canvasGroup.DOFade(1f, 0.5f).WaitForCompletion();
+                yield return canvasGroup.DOFade(1f, 1f).WaitForCompletion();
             }
             else
             {
@@ -75,7 +75,7 @@ public class LoadingManager : Singleton<LoadingManager>
             CanvasGroup canvasGroup = loadingBG.GetComponent<CanvasGroup>();
             if (canvasGroup != null)
             {
-                yield return canvasGroup.DOFade(0f, 0.5f).WaitForCompletion();
+                yield return canvasGroup.DOFade(0f, 1f).WaitForCompletion();
                 loadingBG.SetActive(false);
             }
             else

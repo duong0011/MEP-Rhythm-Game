@@ -19,6 +19,7 @@ public struct MusicGameInfo
 {
     public string musicName;
     public string artistName;
+    public Sprite coverImage;
     public AudioClip audioClip;
     public int bpm;
 }
